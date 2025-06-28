@@ -10,6 +10,10 @@ class AuthController extends BaseController
 {
     public function login()
     {
+        if (session()->get('is_logged_in')) {
+            return redirect()->to('/dashboard');
+        }
+
         return view('auth/login');
     }
 
@@ -22,17 +26,26 @@ class AuthController extends BaseController
         $user = $userModel->where('email', $email)->first();
 
         if ($user && password_verify($password, $user['password'])) {
-            session()->set('user_id', $user['id']);
-            return redirect()->to('/tasks');
+            session()->set([
+                'user_id' => $user['user_id'],
+                'username' => $user['username'],
+                'email' => $user['email'],
+                'is_logged_in' => true
+            ]);
+            return redirect()->to('/dashboard');
         }
 
-        return redirect()->back()->with('error', 'Email atau password salah.');
+        return redirect()->back()->with('error', 'Wrong email or password.');
     }
 
     public function register()
-{
-    return view('auth/register');
-}
+    {
+        if (session()->get('is_logged_in')) {
+            return redirect()->to('/dashboard');
+        }
+
+        return view('auth/register');
+    }
 
     public function processRegister()
     {
@@ -45,6 +58,12 @@ class AuthController extends BaseController
         ];
 
         $userModel->save($data);
-        return redirect()->to('/login')->with('success', 'Registrasi berhasil, silakan login.');
+        return redirect()->to('/login')->with('success', 'Successfully registered! You can now log in.');
+    }
+
+    public function logout()
+    {
+        session()->destroy();
+        return redirect()->to('/')->with('success', 'You have been logged out successfully.');
     }
 }
