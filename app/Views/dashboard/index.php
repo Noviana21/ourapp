@@ -84,7 +84,7 @@
         <?php endif; ?>
 
         <hr class="mt-5 mb-4">
-        <h2 class="gradient-heading2">Upcoming and Past Tasks</h2>
+        <h2 class="gradient-heading2">Upcoming Tasks</h2>
         <?php
         $upcomingTasks = [];
         foreach ($tasks as $task) {
@@ -98,6 +98,57 @@
             <p class="m-2">You don't have any upcoming tasks.</p>
         <?php else: ?>
             <?php foreach ($upcomingTasks as $task): ?>
+                <?php
+                $categoryName = '';
+                foreach ($categories as $category) {
+                    if ($category['category_id'] == $task['category_id']) {
+                        $categoryName = esc($category['name']);
+                        break;
+                    }
+                }
+                ?>
+                <div class="task-card mb-3">
+                    <h4 class="mb-3 gradient-heading3 py-1" style="font-weight:600;"><?= esc($task['title']) ?></h4>
+                    <p style="margin-bottom: 0; line-height: 2;">
+                        <strong>Category:</strong> <?= esc($categoryName) ?>
+                        <br>
+                        <strong>Description:</strong> <?= esc($task['description']) ?>
+                        <br>
+                        <strong>Deadline:</strong> <?= esc($task['deadline']) ?>
+                        <br>
+                        <?php
+                          $status = strtolower($task['status']);
+                          $statusLabel = $status === 'done' ? 'Done' : ($status === 'pending' ? 'Pending' : 'No Status');
+                          $statusClass = $status === 'done' ? 'text-success' : ($status === 'pending' ? 'text-warning-dark' : 'text-muted');
+                        ?>
+                        <strong>Status:</strong> <span class="<?= $statusClass ?>"><?= esc(ucfirst($statusLabel)) ?></span>
+                    </p>
+                    <div class="mt-3 d-flex gap-2 justify-content-end">
+                        <a href="<?= base_url('dashboard?edit=' . $task['task_id']) ?>" class="btn primary-bg">Edit</a>
+                        <form action="<?= base_url('tasks/delete/' . $task['task_id']) ?>" method="post" onsubmit="return confirm('Are you sure?');">
+                            <?= csrf_field() ?>
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        <?php endif; ?>
+
+        <hr class="mt-5 mb-4">
+        <h2 class="gradient-heading2">Past Tasks</h2>
+        <?php
+        $pastTasks = [];
+        foreach ($tasks as $task) {
+            if (date('Y-m-d', strtotime($task['deadline'])) < date('Y-m-d')) {
+                $pastTasks[] = $task;
+            }
+        }
+        ?>
+
+        <?php if (empty($pastTasks)): ?>
+            <p class="m-2">You don't have any past tasks.</p>
+        <?php else: ?>
+            <?php foreach ($pastTasks as $task): ?>
                 <?php
                 $categoryName = '';
                 foreach ($categories as $category) {

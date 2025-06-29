@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 28, 2025 at 05:04 PM
+-- Generation Time: Jun 29, 2025 at 05:09 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -106,7 +106,8 @@ INSERT INTO `tasks` (`task_id`, `user_id`, `category_id`, `title`, `description`
 (6, 2, 1, 'uas web pa eka', 'mengerjakan manual book dan deploy', '2025-06-28', 'pending', '2025-06-28 13:52:42'),
 (8, 3, 6, 'push up', '50 kali ', '2025-06-28', 'pending', '2025-06-28 15:05:03'),
 (9, 3, 8, 'deploy web', 'mendeploy web melalui aeonfree', '2025-06-28', 'pending', '2025-06-28 18:05:33'),
-(10, 2, 7, 'mendengarkan arctic monkeys', 'iyah lagunya bagussss', '2025-08-19', 'pending', '2025-06-28 22:59:17');
+(10, 2, 7, 'mendengarkan arctic monkeys', 'iyah lagunya bagussss', '2025-08-19', 'pending', '2025-06-28 22:59:17'),
+(11, 4, 7, 'membaca pride and prejudice', 'buku', '2025-06-29', 'pending', '2025-06-29 11:07:52');
 
 -- --------------------------------------------------------
 
@@ -129,7 +130,8 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`user_id`, `username`, `password`, `email`, `created_at`) VALUES
 (1, 'admin', '$2y$12$U/YyJBhUHl95CGqG0g3ituacoSAzZEp6y/Tn.j5g12RB4kxRxSA8m', 'admin@example.com', '2025-06-27 15:03:48'),
 (2, 'aventurine', '$2y$12$9orRldFgTYUqZAivPNwcAONaXUzlhLhMWyGCGrg/GjDnFMvW3pWlm', 'aventurine@gmail.com', '2025-06-27 15:04:45'),
-(3, 'john mayer', '$2y$12$ecDiMt6ATz8PL3H/nogM.O.60gqxdXQK8uTqTSCa/w17R.c5VyxEC', 'johnmayer@gmail.com', '2025-06-28 14:05:51');
+(3, 'john mayer', '$2y$12$ecDiMt6ATz8PL3H/nogM.O.60gqxdXQK8uTqTSCa/w17R.c5VyxEC', 'johnmayer@gmail.com', '2025-06-28 14:05:51'),
+(4, 'novi', '$2y$12$.S3/Ifa05XebrolMJ9Ec.OzYGM6OkJmJu13bhPuEGgLfdmMwQAB02', 'noviana21na@gmail.com', '2025-06-29 10:52:05');
 
 --
 -- Indexes for dumped tables
@@ -181,13 +183,13 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `task_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `task_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `user_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables
